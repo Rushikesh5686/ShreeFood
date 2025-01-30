@@ -1,27 +1,31 @@
-const express= require('express')
+const express = require("express");
+const cors = require("cors");
+const con = require("./db.js");
 
-const app= express()
-const con=require('./db.js')
+const app = express();
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Update to match the frontend's origin
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    next();
-});
+// ✅ Use CORS middleware properly
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://clinquant-croquembouche-923989.netlify.app"], // Allow both local and deployed frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+    credentials: true, // Allow cookies/auth headers if needed
+  })
+);
 
 con();
-app.get('/',(req,res)=>{
-    res.send("hello")
-})
-app.use(express.json())                                        //imp for use  
 
-app.use('/api', require('./Routes/CreateUser.js'))   //create user
-app.use('/api', require('./Routes/DisplayData.js'))   //create user
-app.use('/api', require('./Routes/orderdata.js'))   //create user
-app.listen(5000, ()=>{
-    console.log("run")
-})
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
+app.use(express.json()); // Important for parsing JSON
+
+app.use("/api", require("./Routes/CreateUser.js"));
+app.use("/api", require("./Routes/DisplayData.js"));
+app.use("/api", require("./Routes/orderdata.js"));
+
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
+});
