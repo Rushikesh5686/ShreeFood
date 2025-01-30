@@ -10,7 +10,7 @@ function Home() {
 
   const loaddata = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/fooddata", {
+      const response = await fetch("https://shreefood.onrender.com/api/fooddata", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
