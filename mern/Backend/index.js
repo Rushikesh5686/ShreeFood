@@ -9,6 +9,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Local frontend for development
+      "https://shreefoodcom.netlify.app",
       "https://clinquant-croquembouche-923989.netlify.app", // Old Netlify frontend (if still used)
       "https://cheery-hamster-85c238.netlify.app" // ✅ Your actual deployed frontend
     ],
