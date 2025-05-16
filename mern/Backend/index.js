@@ -6,7 +6,12 @@ const app = express();
 
 // ✅ Use CORS middleware properly
 app.use(
-  cors()
+  cors({
+    origin: ["http://localhost:5173", "https://clinquant-croquembouche-923989.netlify.app"], // Allow both local and deployed frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+    credentials: true, // Allow cookies/auth headers if needed
+  })
 );
 
 con();
